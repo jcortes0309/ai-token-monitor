@@ -1,22 +1,25 @@
 import { useState, useMemo } from "react";
 import { useTokenStats } from "./hooks/useTokenStats";
+import { useToday } from "./hooks/useToday";
 import { getTotalTokens } from "./lib/format";
 import { SettingsProvider } from "./contexts/SettingsContext";
+import { AuthProvider } from "./contexts/AuthContext";
 import { PopoverShell } from "./components/PopoverShell";
 import { Header } from "./components/Header";
 import { TabBar } from "./components/TabBar";
+import type { TabType } from "./components/TabBar";
 import { TodaySummary } from "./components/TodaySummary";
 import { DailyChart } from "./components/DailyChart";
 import { Heatmap } from "./components/Heatmap";
 import { ModelBreakdown } from "./components/ModelBreakdown";
 import { PeriodTotals } from "./components/PeriodTotals";
 import { CacheEfficiency } from "./components/CacheEfficiency";
+import { Leaderboard } from "./components/Leaderboard";
 
 function AppContent() {
   const { stats, error, loading } = useTokenStats();
-  const [activeTab, setActiveTab] = useState<"overview" | "analytics">("overview");
-
-  const todayStr = new Date().toISOString().slice(0, 10);
+  const [activeTab, setActiveTab] = useState<TabType>("overview");
+  const todayStr = useToday();
 
   const { today, weekAvg } = useMemo(() => {
     if (!stats) return { today: null, weekAvg: 0 };
@@ -93,20 +96,26 @@ function AppContent() {
       <Header stats={stats} />
       <TabBar activeTab={activeTab} onChange={setActiveTab} />
 
-      {activeTab === "overview" ? (
+      {activeTab === "overview" && (
         <>
           <TodaySummary today={today} weekAvg={weekAvg} />
           <DailyChart daily={stats.daily} days={7} />
           <PeriodTotals daily={stats.daily} />
           <Heatmap daily={stats.daily} weeks={8} />
         </>
-      ) : (
+      )}
+
+      {activeTab === "analytics" && (
         <>
           <DailyChart daily={stats.daily} days={30} />
           <PeriodTotals daily={stats.daily} />
           <ModelBreakdown modelUsage={stats.model_usage} />
           <CacheEfficiency stats={stats} />
         </>
+      )}
+
+      {activeTab === "leaderboard" && (
+        <Leaderboard stats={stats} />
       )}
     </PopoverShell>
   );
@@ -115,7 +124,9 @@ function AppContent() {
 function App() {
   return (
     <SettingsProvider>
-      <AppContent />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </SettingsProvider>
   );
 }

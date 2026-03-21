@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { SettingsOverlay } from "./SettingsOverlay";
 import type { AllStats } from "../lib/types";
-import { formatTokens, formatCost, getTotalTokens } from "../lib/format";
+import { formatTokens, formatCost, getTotalTokens, toLocalDateStr } from "../lib/format";
 
 interface Props {
   stats?: AllStats | null;
@@ -14,7 +14,7 @@ export function Header({ stats }: Props) {
   const handleExport = useCallback(() => {
     if (!stats) return;
 
-    const todayStr = new Date().toISOString().slice(0, 10);
+    const todayStr = toLocalDateStr(new Date());
     const today = stats.daily.find((d) => d.date === todayStr);
     const todayTokens = today ? getTotalTokens(today.tokens) : 0;
     const todayCost = today?.cost_usd ?? 0;
