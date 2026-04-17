@@ -1,0 +1,56 @@
+name: Test Build (macOS Universal)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin,x86_64-apple-darwin
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Disable updater artifacts for test build
+        run: |
+          node -e "
+            const fs = require('fs');
+            const p = 'src-tauri/tauri.conf.json';
+            const c = JSON.parse(fs.readFileSync(p, 'utf8'));
+            c.bundle.createUpdaterArtifacts = false;
+            fs.writeFileSync(p, JSON.stringify(c, null, 2) + '\n');
+          "
+
+      - name: Build universal macOS bundle
+        run: npx tauri build --target universal-apple-darwin
+
+      - name: Upload .dmg
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-universal-dmg
+          path: src-tauri/target/universal-apple-darwin/release/bundle/dmg/*.dmg
+          if-no-files-found: error
+
+      - name: Upload .app bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-universal-app
+          path: src-tauri/target/universal-apple-darwin/release/bundle/macos/*.app
+          if-no-files-found: warn
