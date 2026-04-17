@@ -87,7 +87,7 @@ jobs:
             BODY="No notable changes."
           fi
 
-          CHANGELOG="## AI Token Monitor ${{ steps.bump.outputs.version }}\n\n${BODY}### Download\n- macOS (Apple Silicon): \`.dmg\` 파일을 다운로드하세요.\n- Windows: \`.exe\` 인스톨러를 다운로드하세요."
+          CHANGELOG="## AI Token Monitor ${{ steps.bump.outputs.version }}\n\n${BODY}### Download\n- macOS (Universal — Intel & Apple Silicon): \`.dmg\` 파일을 다운로드하세요.\n- Windows: \`.exe\` 인스톨러를 다운로드하세요."
 
           {
             echo "changelog<<CHANGELOG_EOF"
@@ -122,6 +122,8 @@ jobs:
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin,x86_64-apple-darwin
 
       - name: Rust cache
         uses: swatinem/rust-cache@v2
@@ -166,6 +168,7 @@ jobs:
           releaseDraft: false
           prerelease: false
           updaterJsonKeepUniversal: true
+          args: --target universal-apple-darwin
 
   build-windows:
     needs: [bump-version, build-macos]

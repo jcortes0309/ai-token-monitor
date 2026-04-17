@@ -31,7 +31,7 @@ A system tray app for macOS and Windows that tracks **Claude Code**, **Codex**, 
 
 | Platform | File | Notes |
 |----------|------|-------|
-| **macOS** (Apple Silicon) | `.dmg` | Intel Mac support coming soon |
+| **macOS** (Universal) | `.dmg` | Runs on both Intel and Apple Silicon |
 | **Windows** | `.exe` installer | Windows 10+ (WebView2 required, auto-installed) |
 
 ## Features

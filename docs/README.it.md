@@ -18,7 +18,7 @@ App per la barra di sistema di macOS e Windows che monitora in tempo reale l'uti
 
 | Piattaforma | File | Note |
 |-------------|------|------|
-| **macOS** (Apple Silicon) | `.dmg` | Supporto Intel Mac in arrivo |
+| **macOS** (Universal) | `.dmg` | Supporta sia Intel che Apple Silicon |
 | **Windows** | Installer `.exe` | Windows 10+ (richiede WebView2, installato automaticamente) |
 
 ## Funzionalita
