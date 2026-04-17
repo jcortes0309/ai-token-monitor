@@ -18,7 +18,7 @@ macOS ve Windows sistem tepsisinde **Claude Code**, **Codex** ve **OpenCode** to
 
 | Platform | Dosya | Notlar |
 |----------|-------|--------|
-| **macOS** (Apple Silicon) | `.dmg` | Intel Mac desteği yakında |
+| **macOS** (Universal) | `.dmg` | Hem Intel hem Apple Silicon destekler |
 | **Windows** | `.exe` yükleyici | Windows 10+ (WebView2 gerekli, otomatik kurulur) |
 
 ## Özellikler

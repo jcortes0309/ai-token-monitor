@@ -18,7 +18,7 @@ macOS と Windows のシステムトレイで **Claude Code**、**Codex**、**Op
 
 | プラットフォーム | ファイル | 備考 |
 |-----------------|---------|------|
-| **macOS** (Apple Silicon) | `.dmg` | Intel Mac 対応予定 |
+| **macOS** (Universal) | `.dmg` | Intel と Apple Silicon の両方に対応 |
 | **Windows** | `.exe` インストーラー | Windows 10+（WebView2 必要、自動インストール） |
 
 ## 主な機能

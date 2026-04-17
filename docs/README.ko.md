@@ -18,7 +18,7 @@ macOS / Windows 시스템 트레이에서 **Claude Code**, **Codex**, **OpenCode
 
 | 플랫폼 | 파일 | 비고 |
 |--------|------|------|
-| **macOS** (Apple Silicon) | `.dmg` | Intel Mac 지원 예정 |
+| **macOS** (Universal) | `.dmg` | Intel 및 Apple Silicon 모두 지원 |
 | **Windows** | `.exe` 인스톨러 | Windows 10+ (WebView2 필요, 자동 설치) |
 
 ## 주요 기능

@@ -18,7 +18,7 @@
 
 | 平台 | 文件 | 备注 |
 |------|------|------|
-| **macOS** (Apple Silicon) | `.dmg` | Intel Mac 即将支持 |
+| **macOS** (Universal) | `.dmg` | 同时支持 Intel 和 Apple Silicon |
 | **Windows** | `.exe` 安装程序 | Windows 10+(需要 WebView2,自动安装) |
 
 ## 主要功能
