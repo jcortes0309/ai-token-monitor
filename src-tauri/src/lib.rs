@@ -454,12 +454,12 @@ fn activate_app() {
     #[allow(deprecated)]
     use cocoa::appkit::NSApplication;
     #[allow(deprecated)]
-    use cocoa::base::nil;
+    use cocoa::base::{nil, YES};
     unsafe {
         #[allow(deprecated)]
         let ns_app = NSApplication::sharedApplication(nil);
         #[allow(deprecated)]
-        ns_app.activateIgnoringOtherApps_(true);
+        ns_app.activateIgnoringOtherApps_(YES);
     }
 }
 
